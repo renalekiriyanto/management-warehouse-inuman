@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Registrasi')
+@section('title', 'Register')
 
 @section('content')
 <div class="row justify-content-center fade-in">
@@ -12,7 +12,7 @@
                     @include('partials.brand')
                 </div>
 
-                <!-- Sebelah Kanan: Form -->
+                <!-- Sebelah Kanan: Google Sign-In Action -->
                 <div class="col-md-7 p-4 p-sm-5">
 
                     <div class="text-center d-md-none mb-4">
@@ -21,122 +21,43 @@
                     </div>
 
                     <div class="mb-4">
-                        <h3 class="fw-bold text-gray-900 mb-1">Registrasi Akun</h3>
-                        <p class="text-muted small">Daftarkan akun karyawan untuk operasional logistik</p>
+                        <h3 class="fw-bold text-gray-900 mb-1">Register</h3>
+                        <p class="text-muted small">Sign up using your SPX Express Google Account.</p>
                     </div>
 
-                    <form action="{{ route('register') }}" method="POST" novalidate>
-                        @csrf
-
-                        <!-- Nama Lengkap -->
-                        <div class="mb-3">
-                            <x-input
-                                label="Nama Lengkap"
-                                type="text"
-                                name="name"
-                                placeholder="Masukkan nama lengkap"
-                                value="{{ old('name') }}"
-                                required
-                                autocomplete="name"
-                            />
-                        </div>
-
-                        <!-- Email Corporate -->
-                        <div class="mb-3">
-                            <x-input
-                                label="Email Corporate"
-                                type="email"
-                                name="email"
-                                placeholder="nama@spxexpress.com"
-                                value="{{ old('email') }}"
-                                required
-                                autocomplete="email"
-                            />
-                        </div>
-
-                        <!-- Password & Konfirmasi Password (Grid Responsive) -->
-                        <div class="row g-3 mb-3">
-                            <div class="col-sm-6">
-                                <x-input
-                                    label="Password"
-                                    type="password"
-                                    name="password"
-                                    placeholder="Min. 8 karakter"
-                                    required
-                                    autocomplete="new-password"
-                                />
-                            </div>
-                            <div class="col-sm-6">
-                                <x-input
-                                    label="Konfirmasi Password"
-                                    type="password"
-                                    name="password_confirmation"
-                                    placeholder="Ulangi password"
-                                    required
-                                    autocomplete="new-password"
-                                />
+                    <!-- Information Card -->
+                    <div class="card bg-light border-0 rounded-3 mb-4">
+                        <div class="card-body p-3.5 text-start">
+                            <div class="d-flex align-items-start gap-3">
+                                <i class="bi bi-info-circle-fill text-primary" style="font-size: 1.25rem;"></i>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1" style="font-size: 0.85rem;">Informasi Pendaftaran</h6>
+                                    <ul class="mb-0 ps-3 text-muted small" style="line-height: 1.5; font-size: 0.78rem;">
+                                        <li>Hanya akun Google dengan domain <strong class="text-dark">@spxexpress.com</strong> yang diperbolehkan.</li>
+                                        <li>Setelah sign-in, Anda akan diarahkan ke halaman melengkapi profil (Station &amp; Role).</li>
+                                        <li>Aktivasi akun sepenuhnya bergantung pada persetujuan administrator sistem.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Station (Searchable Select Component) -->
-                        <div class="mb-3">
-                            <label for="station_id" class="form-label fw-semibold text-gray-700">Station</label>
-                            <x-select
-                                name="station_id"
-                                id="station_id"
-                                placeholder="Pilih Station"
-                                searchable="true"
-                                required
-                            >
-                                <option value="" disabled selected>Pilih Station</option>
-                                @foreach($stations as $station)
-                                    <option value="{{ $station->id }}" {{ old('station_id') == $station->id ? 'selected' : '' }}>
-                                        {{ $station->name }}
-                                    </option>
-                                @endforeach
-                            </x-select>
-                        </div>
+                    <!-- Divider -->
+                    <div class="auth-divider">
+                        <span>Continue</span>
+                    </div>
 
-                        <!-- Role -->
-                        <div class="mb-4">
-                            <label for="role" class="form-label fw-semibold text-gray-700">Role</label>
-                            <x-select
-                                name="role"
-                                id="role"
-                                required
-                            >
-                                <option value="" disabled selected>Pilih Role</option>
-                                <option value="operator" {{ old('role') == 'operator' ? 'selected' : '' }}>Operator</option>
-                                <option value="supervisor" {{ old('role') == 'supervisor' ? 'selected' : '' }}>Supervisor</option>
-                                <option value="shift_leader" {{ old('role') == 'shift_leader' ? 'selected' : '' }}>Shift Leader</option>
-                                <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>Manager</option>
-                            </x-select>
-                        </div>
-
-                        <!-- Register Button -->
-                        <div class="d-grid mb-3">
-                            <x-button type="submit" class="btn-primary-sb">
-                                <i class="bi bi-person-plus-fill"></i>Daftarkan Akun
-                            </x-button>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="auth-divider">
-                            <span>Atau daftar dengan</span>
-                        </div>
-
-                        <!-- Google OAuth Login -->
-                        <div class="d-grid mb-4">
-                            <a href="{{ route('auth.google') }}" class="btn btn-google-oauth">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-                                Continue with Google
-                            </a>
-                        </div>
-                    </form>
+                    <!-- Google OAuth Button -->
+                    <div class="d-grid mb-4">
+                        <a href="{{ route('auth.google') }}" class="btn btn-google-oauth">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                            Continue with Google
+                        </a>
+                    </div>
 
                     <div class="mt-4 text-center">
                         <p class="small text-muted mb-0">
-                            Sudah memiliki akun? <a href="{{ route('login') }}" class="text-primary-sb text-decoration-none fw-bold">Login</a>
+                            Already have an account? <a href="{{ route('login') }}" class="text-primary-sb text-decoration-none fw-bold" style="transition: color 0.2s;">Login</a>
                         </p>
                     </div>
 

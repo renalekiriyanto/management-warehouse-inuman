@@ -3,16 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Station;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Socialite;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     public function pageLogin()
     {
         return view('auth.login');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 
     public function pageRegister()
@@ -33,7 +47,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
-            ]);
+        ]);
 
         try {
             // Create the user
@@ -55,6 +69,43 @@ class AuthController extends Controller
         }
     }
 
+    public function completeProfile(Request $request)
+    {
+        // Retrieve the user data from the request
+        $user = $request->user;
+        $stations = Station::all(); // Assuming you have a Station model to fetch stations
+        $roles = Role::all(); // Assuming you have a Role model to fetch roles
+        // Render the complete profile view and pass the user data
+        return view('auth.complete-profile', ['user' => $user, 'stations' => $stations, 'roles' => $roles]);
+    }
+
+    public function completeProfileSubmit(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'station_id' => 'required|exists:stations,id',
+            'role' => 'required|exists:roles,id',
+        ]);
+        $user = Auth::user(); // Get the currently authenticated user
+        // Update the user data
+        $user->station_id = $validatedData['station_id'];
+
+        $role = Role::findById($validatedData['role'], 'web');
+        $user->assignRole($role->name);
+
+        // Handle avatar upload if provided
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->profile()->updateOrCreate([], ['avatar' => $avatarPath]);
+        }
+
+        // Save the updated user data
+        $user->save();
+
+        // Redirect to a success page or dashboard
+        return redirect()->route('dashboard')->with('success', 'Profile completed successfully.');
+    }
+
     public function redirectToProvider()
     {
         return Socialite::driver('google')->redirect();
@@ -63,22 +114,47 @@ class AuthController extends Controller
     public function handleProviderCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
-            // You can access user information like $user->getId(), $user->getName(), $user->getEmail(), etc.
-            // For example, you can create or find a user in your database and log them in.
-            // Example:
-            // $authUser = User::firstOrCreate([
-            //     'email' => $user->getEmail(),
-            // ], [
-            //     'name' => $user->getName(),
-            //     'google_id' => $user->getId(),
-            // ]);
+            $googleUser = Socialite::driver('google')->user();
+            // Checking email user
+            $existingUser = User::where('email', $googleUser->getEmail())->first();
+            if ($existingUser) {
+                // User already exists, log them in
+                // Check user role
 
-            // Auth::login($authUser, true);
+            } else {
+                // Create a new user
+                $newUser = User::create([
+                    'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
+                    'password' => bcrypt(uniqid()), // Generate a random password
+                ]);
 
-            return redirect()->intended('/'); // Redirect to the intended page after login
+                $avatarPath = null;
+
+                if ($googleUser->getAvatar()) {
+
+                    $contents = Http::get($googleUser->getAvatar())->body();
+
+                    $filename = Str::uuid() . '.jpg';
+
+                    Storage::disk('public')->put(
+                        "avatars/{$filename}",
+                        $contents
+                    );
+
+                    $avatarPath = "avatars/{$filename}";
+                }
+
+                $profile = $newUser->profile()->create([
+                    'avatar' => $avatarPath,
+                ]);
+            }
+
+            Auth::login($newUser, true); // Log in the new user
+            // redirecto to complete profile page, and pass data new user created
+            return redirect()->route('auth.complete-profile', ['user' => $newUser]); // Redirect to the intended page after login
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors(['msg' => 'Unable to login using Google. Please try again.']);
+            return redirect()->back()->withErrors(['msg' => 'Unable to login using Google. Please try again.']);
         }
     }
 }
