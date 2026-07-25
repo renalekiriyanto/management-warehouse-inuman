@@ -3,6 +3,151 @@
 @section('title', 'Login')
 
 @section('content')
+@push('styles')
+    <style>
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fc;
+            color: #858796;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-auth {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .bg-brand-sidebar {
+            background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+            color: #fff;
+            padding: 3.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            min-height: 460px;
+        }
+
+        .text-brand-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary-sb {
+            background-color: #4e73df;
+            border-color: #4e73df;
+            color: #fff;
+            border-radius: 10px;
+            padding: 0.65rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-primary-sb:hover, .btn-primary-sb:focus {
+            background-color: #2e59d9;
+            border-color: #264bbf;
+            color: #fff;
+            box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+        }
+
+        /* Modern Google OAuth Button */
+        .btn-google-oauth {
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            color: #3c4043;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-google-oauth:hover, .btn-google-oauth:focus {
+            background-color: #f8f9fa;
+            border-color: #d2d4d7;
+            color: #202124;
+            box-shadow: 0 2px 6px rgba(60,64,67,0.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-google-oauth:active {
+            background-color: #f1f3f4;
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+
+        .btn-google-oauth img {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
+        /* Premium Visual Divider */
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.75rem 0;
+            color: #a0a2b1;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .auth-divider::before, .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .auth-divider::before {
+            margin-right: 1.25rem;
+        }
+
+        .auth-divider::after {
+            margin-left: 1.25rem;
+        }
+
+        /* Info Card Styling */
+        .card-info-blue {
+            background-color: #f0f4f9;
+            border: 1px solid #d2e3fc;
+            border-radius: 12px;
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+@endpush
 <div class="row justify-content-center fade-in">
     <div class="col-lg-10 col-xl-9">
         <div class="card card-auth my-5">
@@ -48,11 +193,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Divider -->
-                    <div class="auth-divider">
-                        <span>Continue</span>
                     </div>
 
                     <!-- Google OAuth Login Button -->

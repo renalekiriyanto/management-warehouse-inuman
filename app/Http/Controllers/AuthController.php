@@ -120,7 +120,12 @@ class AuthController extends Controller
             if ($existingUser) {
                 // User already exists, log them in
                 // Check user role
-
+                Auth::login($existingUser, true); // Log in the existing user
+                // if ($existingUser->hasRole('super-admin')) {
+                //     return redirect()->route('dashboard'); // Redirect to the intended page after login
+                // } else {
+                //     return redirect()->route('login')->withErrors(['msg' => 'You do not have permission to access this application.']);
+                // }
             } else {
                 // Create a new user
                 $newUser = User::create([

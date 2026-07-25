@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InboundController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -10,7 +11,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+
+    // Inbounds route
+    Route::prefix('inbounds')->group(function () {
+        Route::prefix('projection')->group(function () {
+            Route::get('/', [InboundController::class, 'projection'])->name('inbounds.projection');
+            Route::post('/import', [InboundController::class, 'importProjection'])->name('inbound.projection.import');
+        });
+    });
 });
+
 Route::prefix('auth')->group(function () {
     Route::get('/login', [App\Http\Controllers\AuthController::class, 'pageLogin'])->name('login');
     Route::get('/register', [App\Http\Controllers\AuthController::class, 'pageRegister'])->name('register');
