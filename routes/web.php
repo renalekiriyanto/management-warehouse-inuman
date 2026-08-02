@@ -9,41 +9,41 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/', [HomeController::class,'index']);
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+//     // Inbounds route
+//     Route::prefix('inbounds')->group(function () {
+//         Route::get('/', [InboundController::class, 'index'])->name('inbounds.index');
+//         Route::post('/', [InboundController::class, 'store'])->name('inbounds.store');
+//         Route::prefix('projection')->group(function () {
+//             Route::get('/', [InboundController::class, 'projection'])->name('inbounds.projection');
+//             Route::post('/import', [InboundController::class, 'importProjection'])->name('inbound.projection.import');
+//         });
+//     });
 
-    // Inbounds route
-    Route::prefix('inbounds')->group(function () {
-        Route::get('/', [InboundController::class, 'index'])->name('inbounds.index');
-        Route::post('/', [InboundController::class, 'store'])->name('inbounds.store');
-        Route::prefix('projection')->group(function () {
-            Route::get('/', [InboundController::class, 'projection'])->name('inbounds.projection');
-            Route::post('/import', [InboundController::class, 'importProjection'])->name('inbound.projection.import');
-        });
-    });
+//     // Add ons - Configuring any data like total slot in each station, etc
+//     Route::prefix('config')->group(function () {
+//         Route::prefix('slot')->group(function () {
+//             Route::get('/', [ConfigController::class, 'configInboundSlotIndex'])->name('config.inbound.slot.index');
+//             Route::post('/', [ConfigController::class, 'configInboundSlotStore'])->name('config.inbound.slot.store');
+//             Route::put('update/{slot}', [ConfigController::class, 'configInboundSlotUpdate'])->name('config.inbound.slot.update');
+//             Route::delete('update', [ConfigController::class, 'configInboundSlotDestroy'])->name('config.inbound.slot.destroy');
+//         });
+//     });
+// });
 
-    // Add ons - Configuring any data like total slot in each station, etc
-    Route::prefix('config')->group(function () {
-        Route::prefix('slot')->group(function () {
-            Route::get('/', [ConfigController::class, 'configInboundSlotIndex'])->name('config.inbound.slot.index');
-            Route::post('/', [ConfigController::class, 'configInboundSlotStore'])->name('config.inbound.slot.store');
-            Route::put('update/{slot}', [ConfigController::class, 'configInboundSlotUpdate'])->name('config.inbound.slot.update');
-            Route::delete('update', [ConfigController::class, 'configInboundSlotDestroy'])->name('config.inbound.slot.destroy');
-        });
-    });
-});
+// Route::prefix('auth')->group(function () {
+//     Route::get('/login', [App\Http\Controllers\AuthController::class, 'pageLogin'])->name('login');
+//     Route::get('/register', [App\Http\Controllers\AuthController::class, 'pageRegister'])->name('register');
+//     Route::post('/register', [App\Http\Controllers\AuthController::class, 'registerAccount'])->name('register.account');
 
-Route::prefix('auth')->group(function () {
-    Route::get('/login', [App\Http\Controllers\AuthController::class, 'pageLogin'])->name('login');
-    Route::get('/register', [App\Http\Controllers\AuthController::class, 'pageRegister'])->name('register');
-    Route::post('/register', [App\Http\Controllers\AuthController::class, 'registerAccount'])->name('register.account');
-
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
-    // Google OAuth routes
-    Route::get('/google', [App\Http\Controllers\AuthController::class, 'redirectToProvider'])->name('auth.google');
-    Route::get('/google/callback', [App\Http\Controllers\AuthController::class, 'handleProviderCallback'])->name('auth.google.callback');
-    // Complete profile
-    Route::get('/complete-profile', [App\Http\Controllers\AuthController::class, 'completeProfile'])->name('auth.complete-profile');
-    Route::post('/complete-profile', [App\Http\Controllers\AuthController::class, 'completeProfileSubmit'])->name('auth.complete-profile.submit');
-});
+//     Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+//     // Google OAuth routes
+//     Route::get('/google', [App\Http\Controllers\AuthController::class, 'redirectToProvider'])->name('auth.google');
+//     Route::get('/google/callback', [App\Http\Controllers\AuthController::class, 'handleProviderCallback'])->name('auth.google.callback');
+//     // Complete profile
+//     Route::get('/complete-profile', [App\Http\Controllers\AuthController::class, 'completeProfile'])->name('auth.complete-profile');
+//     Route::post('/complete-profile', [App\Http\Controllers\AuthController::class, 'completeProfileSubmit'])->name('auth.complete-profile.submit');
+// });
