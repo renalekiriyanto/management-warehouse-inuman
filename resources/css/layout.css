@@ -30,3 +30,7 @@
     flex-direction:column;
     gap:24px;
 }
+
+.content-wrapper{
+    padding:32px;
+}

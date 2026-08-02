@@ -4,7 +4,7 @@
 .sidebar {
     background: var(--bg-card);
     border-right: var(--border-thick);
-    padding: 24px 20px;
+    padding:20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -54,7 +54,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .menu-item a {
@@ -153,13 +153,11 @@
 }
 
 .menu-icon {
-
     width: 22px;
 
     text-align: center;
 
     font-size: 16px;
-
 }
 
 .sidebar-content {
@@ -169,7 +167,6 @@
 }
 
 .menu-item a {
-
     display: flex;
     align-items: center;
     gap: 12px;
@@ -191,23 +188,18 @@
     box-shadow: var(--shadow-md);
 
     transition: var(--transition-fast);
-
 }
 
 .menu-item a:hover {
-
     background: var(--color-lime);
 
     transform: translate(-2px, -2px);
 
     box-shadow: 6px 6px 0 var(--color-black);
-
 }
 
-.menu-item a.active{
+.menu-item a.active {
+    background: var(--color-purple);
 
-    background:var(--color-purple);
-
-    color:white;
-
+    color: white;
 }

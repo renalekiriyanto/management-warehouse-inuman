@@ -17,13 +17,19 @@
 
         <div class="main-wrapper">
 
-            <x-navbar />
 
-            <main class="main-content">
+            <x-navbar.index />
+            <div class="main-content">
 
-                @yield('content')
+                <main class="content-wrapper">
 
-            </main>
+                    @yield('content')
+
+                </main>
+
+                <x-footer />
+
+            </div>
 
             <x-footer />
 

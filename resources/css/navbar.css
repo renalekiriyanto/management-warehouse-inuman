@@ -1,0 +1,141 @@
+.top-navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 32px;
+
+    background:var(--bg-card);
+
+    border-bottom:var(--border-thick);
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.navbar-left,
+.navbar-right{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.top-navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 32px;
+
+    background:var(--bg-card);
+
+    border-bottom:var(--border-thick);
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.navbar-left,
+.navbar-right{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.breadcrumb-current{
+    font-size:24px;
+    font-weight:900;
+}
+
+.navbar-search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:10px 16px;
+
+    min-width:260px;
+
+    background:white;
+
+    border:var(--border-thick);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+}
+
+.navbar-search input{
+    border:none;
+    outline:none;
+    width:100%;
+    background:transparent;
+}
+
+.navbar-icon{
+    width:48px;
+    height:48px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:white;
+
+    border:var(--border-thick);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+    cursor:pointer;
+}
+
+.navbar-profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:8px 14px;
+
+    background:white;
+
+    border:var(--border-thick);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+    cursor:pointer;
+}
+
+.profile-avatar{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--color-yellow);
+
+    font-weight:900;
+}
+
+.profile-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.profile-name{
+    font-weight:800;
+}
+
+.profile-role{
+    font-size:12px;
+    opacity:.7;
+}
