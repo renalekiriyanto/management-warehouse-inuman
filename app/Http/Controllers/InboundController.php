@@ -4,12 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Imports\InboundProjectionImport;
 use App\Models\ProjectionInbound;
+use App\Models\Slot;
 use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class InboundController extends Controller
 {
+    public function index()
+    {
+        // $inbounds = Inbound::with('station')
+        // ->when($request->station_id, fn($q) => $q->where('station_id', $request->station_id))
+        // ->when($request->status, fn($q) => $q->where('status', $request->status))
+        // ->when($request->tanggal, fn($q) => $q->whereDate('tanggal', $request->tanggal))
+        // ->latest()
+        // ->paginate(10)
+        // ->withQueryString();
+        $inbounds = [];
+        $slots = [];
+
+        $user = Auth::user();
+        $isManager = $isManager = is_null($user->station_id);
+        if ($isManager) {
+            $slots = Slot::all();
+        } else {
+            $slots = Slot::where('station_id', $user->station_id)->get();
+        }
+
+        $stations = Station::all();
+        return view('inbounds.index', [
+            'title' => 'Inbound',
+            'inbounds' => $inbounds,
+            'stations' => $stations,
+            'slots' => $slots,
+            'user' => $user,
+            'isManager' => $isManager
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        return 'Under construction';
+    }
+
     public function projection(Request $request)
     {
         $query = ProjectionInbound::with('station');

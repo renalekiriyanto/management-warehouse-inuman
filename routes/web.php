@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InboundController;
 use Illuminate\Support\Facades\Route;
@@ -14,9 +15,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Inbounds route
     Route::prefix('inbounds')->group(function () {
+        Route::get('/', [InboundController::class, 'index'])->name('inbounds.index');
+        Route::post('/', [InboundController::class, 'store'])->name('inbounds.store');
         Route::prefix('projection')->group(function () {
             Route::get('/', [InboundController::class, 'projection'])->name('inbounds.projection');
             Route::post('/import', [InboundController::class, 'importProjection'])->name('inbound.projection.import');
+        });
+    });
+
+    // Add ons - Configuring any data like total slot in each station, etc
+    Route::prefix('config')->group(function () {
+        Route::prefix('slot')->group(function () {
+            Route::get('/', [ConfigController::class, 'configInboundSlotIndex'])->name('config.inbound.slot.index');
+            Route::post('/', [ConfigController::class, 'configInboundSlotStore'])->name('config.inbound.slot.store');
+            Route::put('update/{slot}', [ConfigController::class, 'configInboundSlotUpdate'])->name('config.inbound.slot.update');
+            Route::delete('update', [ConfigController::class, 'configInboundSlotDestroy'])->name('config.inbound.slot.destroy');
         });
     });
 });

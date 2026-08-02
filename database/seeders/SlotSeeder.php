@@ -30,6 +30,7 @@ class SlotSeeder extends Seeder
         foreach ($slots as $slot) {
             $slug = \Illuminate\Support\Str::slug($slot['name']);
             $slot['slug'] = $slug;
+            $slot['station_id'] = 5;
             \App\Models\Slot::create($slot);
         }
     }
