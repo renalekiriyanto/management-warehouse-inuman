@@ -73,6 +73,7 @@ class InboundController extends Controller
         ]);
     }
 
+    // Importing data
     public function importProjection(Request $request)
     {
         $request->validate([
@@ -82,5 +83,29 @@ class InboundController extends Controller
         Excel::import(new InboundProjectionImport(), $request->file('file'));
 
         return redirect()->back()->with('success', 'Inbound Projection berhasil diimport.');
+    }
+
+    // Planning
+    public function planning()
+    {
+        return view('inbounds.planning.index', [
+            'title' => 'Inbound Planning',
+        ]);
+    }
+
+    // Monitoring
+    public function monitoring()
+    {
+        return view('inbounds.monitoring.index', [
+            'title' => 'Inbound Monitoring',
+        ]);
+    }
+
+    // History
+    public function history()
+    {
+        return view('inbounds.history.index', [
+            'title' => 'Inbound History',
+        ]);
     }
 }

@@ -2,7 +2,7 @@
 
     <div class="brand-title">
 
-        SPX SLOT
+        SPX INUMAN HUB
 
         <span class="brand-badge">
             V1.0

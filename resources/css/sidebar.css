@@ -4,7 +4,7 @@
 .sidebar {
     background: var(--bg-card);
     border-right: var(--border-thick);
-    padding:20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -202,4 +202,86 @@
     background: var(--color-purple);
 
     color: white;
+}
+
+.sidebar-submenu {
+    display: none;
+    overflow: hidden;
+    margin-top: 8px;
+    padding-left: 24px;
+}
+
+.sidebar-submenu.show {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+.sidebar-submenu a {
+
+    color: #444;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    padding: 8px 12px;
+
+    border-radius: 12px;
+
+}
+
+.sidebar-submenu a:hover {
+
+    background: #EFEFEF;
+
+}
+
+.has-submenu {
+
+    justify-content: space-between;
+
+}
+
+.menu-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+.sidebar-submenu.show{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.sidebar-submenu a{
+    padding:10px 16px;
+    font-size:.85rem;
+    font-weight:700;
+    border:2px solid #000;
+    border-radius:12px;
+    box-shadow:3px 3px 0 #000;
+}
+
+.submenu-arrow{
+
+    transition:.25s;
+
+}
+
+.submenu-arrow.rotate{
+
+    transform:rotate(180deg);
+
 }

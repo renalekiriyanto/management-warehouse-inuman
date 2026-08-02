@@ -2,23 +2,29 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InboundController;
+use App\Http\Controllers\ProjectionController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Inbounds route
-    Route::prefix('inbounds')->group(function () {
-        Route::get('/', [InboundController::class, 'index'])->name('inbounds.index');
-        Route::post('/', [InboundController::class, 'store'])->name('inbounds.store');
-        Route::prefix('projection')->group(function () {
-            Route::get('/', [InboundController::class, 'projection'])->name('inbounds.projection');
-            Route::post('/import', [InboundController::class, 'importProjection'])->name('inbound.projection.import');
+    Route::prefix('inbound')->name('inbound.')->group(function () {
+        Route::get('/', [InboundController::class, 'index'])->name('index');
+        Route::get('/planning', [InboundController::class, 'planning'])->name('planning.index');
+        Route::get('/monitoring', [InboundController::class, 'monitoring'])->name('monitoring.index');
+        Route::get('/history', [InboundController::class, 'history'])->name('history.index');
+
+        // Projection
+        Route::prefix('projection')->name('projection.')->group(function () {
+            Route::get('/', [ProjectionController::class, 'index'])->name('index');
+            Route::get('/{projection}', [ProjectionController::class, 'show'])->name('show');
         });
     });
 
