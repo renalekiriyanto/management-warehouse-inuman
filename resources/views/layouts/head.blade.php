@@ -9,5 +9,5 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @vite('resources/css/app.css')

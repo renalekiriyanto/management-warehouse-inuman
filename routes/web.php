@@ -23,7 +23,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Projection
         Route::prefix('projection')->name('projection.')->group(function () {
-            Route::get('/', [ProjectionController::class, 'index'])->name('index');
+            Route::get('/',           [ProjectionController::class, 'index'])->name('index');
+            Route::post('/import',    [ProjectionController::class, 'import'])->name('import');
+            Route::get('/template',   [ProjectionController::class, 'downloadTemplate'])->name('template');
             Route::get('/{projection}', [ProjectionController::class, 'show'])->name('show');
         });
     });

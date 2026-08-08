@@ -23,7 +23,7 @@
             <i class="fa-solid fa-chevron-down submenu-arrow"></i>
         </a>
         <div class="sidebar-submenu" id="inboundSubmenu">
-            <a href="">Projection</a>
+            <a href="{{ route('inbound.projection.index') }}">Projection</a>
             <a href="">Planning</a>
             <a href="">Monitoring</a>
             <a href="">History</a>

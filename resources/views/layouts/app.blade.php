@@ -18,7 +18,7 @@
         <div class="main-wrapper">
 
 
-            <x-navbar.index />
+            <x-navbar.index :breadcrumb="$title ?? 'Dashboard'" />
             <div class="main-content">
 
                 <main class="content-wrapper">

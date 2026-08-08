@@ -1,7 +1,7 @@
 <header class="top-navbar">
 
     <div class="navbar-left">
-        <x-navbar.breadcrumb />
+        <x-navbar.breadcrumb :breadcrumb="$breadcrumb ?? 'Dashboard'" />
     </div>
 
     <div class="navbar-right">

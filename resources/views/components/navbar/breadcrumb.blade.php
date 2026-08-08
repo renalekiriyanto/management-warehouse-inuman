@@ -1,7 +1,7 @@
 <div class="breadcrumb">
 
     <span class="breadcrumb-current">
-        Dashboard
+        {{ $breadcrumb ?? 'Dashboard' }}
     </span>
 
 </div>
